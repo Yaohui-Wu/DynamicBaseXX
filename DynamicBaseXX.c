@@ -11,7 +11,7 @@
 #include <unistd.h>
 
 // also Base32 encoding, Base16 encoding
-// The data of 64 values of encoded table that you can set randomly, but no more than 256 ASCIIs.
+// Each value of 64 numbers of encoded table that you can set randomly, but the value is no more than 256.
 unsigned char aucBase64Encode[64] = {
     65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90,
     97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122,
