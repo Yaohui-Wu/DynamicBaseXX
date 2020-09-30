@@ -1,6 +1,6 @@
 // Usage (encryption): DynamicBaseXX -C/c plaintext.file ciphertext.file password
 // Usage (decryption): DynamicBaseXX -P/p ciphertext.file plaintext.file password
-// Compiled on MacOS, Linux and *BSD.
+// Compiled on MacOS, Linux and *BSD in X86_64 platform.
 // Talk is SO EASY, show you my GOD.
 // Simple is beautiful.
 
@@ -70,13 +70,13 @@ void Encrypt(char *argv[])
 // allocate storage space
     unsigned char *pucPlaintext = (unsigned char*)malloc(ulPlaintextLength), *pucCiphertext = (unsigned char*)malloc(ulCiphertextLength);
 
-// open plaintext file descriptor
-    int iPlaintextOrCiphertextFD = open(argv[0], O_RDONLY, S_IRUSR | S_IWUSR);
+// open plaintext file
+    int iPlaintextOrCiphertext = open(argv[0], O_RDONLY, S_IRUSR | S_IWUSR);
 
 // read data from plaintext file
-    read(iPlaintextOrCiphertextFD, pucPlaintext, ulPlaintextLength);
+    read(iPlaintextOrCiphertext, pucPlaintext, ulPlaintextLength);
 
-    close(iPlaintextOrCiphertextFD);
+    close(iPlaintextOrCiphertext);
 
 // magic
     pucPlaintext[ulPlaintextLength] = 0;
@@ -114,13 +114,13 @@ void Encrypt(char *argv[])
         }
     }
 
-// open ciphertext file descriptor
-    iPlaintextOrCiphertextFD = open(argv[1], O_CREAT | O_WRONLY, S_IREAD | S_IWRITE);
+// open ciphertext file
+    iPlaintextOrCiphertext = open(argv[1], O_CREAT | O_WRONLY, S_IREAD | S_IWRITE);
 
 // write data to ciphertext file
-    write(iPlaintextOrCiphertextFD, pucCiphertext, ulCiphertextLength);
+    write(iPlaintextOrCiphertext, pucCiphertext, ulCiphertextLength);
 
-    close(iPlaintextOrCiphertextFD);
+    close(iPlaintextOrCiphertext);
 
     free(pucCiphertext);
 
@@ -145,13 +145,13 @@ void Decrypt(char *argv[])
 // allocate storage space
     unsigned char *pucCiphertext = (unsigned char*)malloc(ulCiphertextLength), *pucPlaintext = (unsigned char*)malloc(ulPlaintextLength);
 
-// open ciphertext file descriptor
-    int iCiphertextOrPlaintextFD = open(argv[0], O_RDONLY, S_IRUSR | S_IWUSR);
+// open ciphertext file
+    int iCiphertextOrPlaintext = open(argv[0], O_RDONLY, S_IRUSR | S_IWUSR);
 
 // read data from ciphertext file
-    read(iCiphertextOrPlaintextFD, pucCiphertext, ulCiphertextLength);
+    read(iCiphertextOrPlaintext, pucCiphertext, ulCiphertextLength);
 
-    close(iCiphertextOrPlaintextFD);
+    close(iCiphertextOrPlaintext);
 
 // process ciphertext data
     for(unsigned long i = 0, k = 0; i < ulCiphertextLength; i += 16)
@@ -187,13 +187,13 @@ void Decrypt(char *argv[])
         --ulPlaintextLength;
     }
 
-// open plaintext file descriptor
-    iCiphertextOrPlaintextFD = open(argv[1], O_CREAT | O_WRONLY, S_IREAD | S_IWRITE);
+// open plaintext file
+    iCiphertextOrPlaintext = open(argv[1], O_CREAT | O_WRONLY, S_IREAD | S_IWRITE);
 
 // write data to plaintext file
-    write(iCiphertextOrPlaintextFD, pucPlaintext, ulPlaintextLength);
+    write(iCiphertextOrPlaintext, pucPlaintext, ulPlaintextLength);
 
-    close(iCiphertextOrPlaintextFD);
+    close(iCiphertextOrPlaintext);
 
     free(pucPlaintext);
 
